@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Email Validation</title>
+    <script type="text/javascript"></script>
+</head>
+
+<body>
+    <form  method="post" onsubmit="return btnsubmit()" novalidate action="login.html">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="email" class="form-control"  id="mailId" onblur="email()"  aria-describedby="emailHelp" placeholder="Enter email">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input type="password" class="form-control" id="pass" onblur="checkpass()" placeholder="Password">
+        </div>
+        <p id="passErr"></p>
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="check">
+          <label class="form-check-label" for="exampleCheck1">Remember Me</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <script>
+        var emailid = document.getElementById("mailId");
+        var passele = document.getElementById("pass");
+        var error2 = document.getElementById("passErr");
+        let checkEl = document.getElementById("check");
+        var regxp = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+
+        let storeobj = [{
+            email: "praveen@gmail.com",
+            password: "Praveen@4"
+        }, {
+            email: "vyshnavi@gmail.com",
+            password: "Vyshnavi@123"
+        }]
+        function email() {
+            error2.textContent = ""
+            let emailvalue = emailid.value
+            let subs = emailvalue.substring(emailvalue.indexOf('@') + 1);
+            if (emailvalue == "") {
+                error2.textContent = "Required"
+                return false
+            } else if (!emailvalue.includes('@') || subs == '') {
+                error2.textContent = "Please enter correct Email"
+                return false
+            } else {
+                error2.textContent = ""
+                return true
+            }
+        }
+        function checkpass() {
+            error2.textContent = ""
+            let passvalue = passele.value
+            let pass = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,24})")
+            if (passvalue == "") {
+                error2.textContent = "Required"
+                return false
+            } else if (!pass.test(passvalue)) {
+                error2.textContent = "Enter correct passowrd"
+                return false
+            } else {
+                if(checkEl.checked){
+                    error2.textContent = ""
+                    return true
+                }
+                else{
+                    error2.textContent = "please checked"
+                    return false
+                }
+            }
+        }
+        function btnsubmit() {
+            let s1 = email()
+            let s2 = checkpass()
+            if (s1 && s2) {
+                s3 = check_total()
+            }
+            return s1 && s2 && s3
+        }
+
+        function check_total() {
+            error2.textContent = ""
+            let newval = storeobj.some(each => each.email == emailid.value && each.password == passele.value)
+            if (newval) {
+               return true
+            } else {
+                error2.textContent = "Email or Password is incorrect"
+                console.log(emailid.value)
+                return false
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

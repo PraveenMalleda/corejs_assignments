@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slider</title>
+    <style>
+        h1{
+            text-align: center;
+            color:white;
+        }
+        body{
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+   <img src="images\image1.jpg" height="500px" width="500px" id="im">
+
+   
+     <script>
+         var arr=["images/image2.jpg","images/image3.jpg","images/image4.jpg","images/image5.jpg"]
+         count=0;
+         function inter() {
+           count++
+           if (count == 4){
+               count=0
+               document.getElementById("im").src=arr[count]
+           }else{
+            document.getElementById("im").src=arr[count]
+           }
+         }
+         setInterval(inter,3000)
+         </script>
+</body>
+</html>
